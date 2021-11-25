@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static com.muhammad.warehouse_management.config.SecurityConstant.*;
+import static com.muhammad.warehouse_management.config.constant.SecurityConstant.*;
 
 @Component
 public class JWTAccessDeniedHandler implements AccessDeniedHandler {

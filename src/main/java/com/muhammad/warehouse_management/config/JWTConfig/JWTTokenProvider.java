@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.muhammad.warehouse_management.model.UserDetails;
+import com.muhammad.warehouse_management.model.CustomUserDetails;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.muhammad.warehouse_management.config.SecurityConstant.*;
+import static com.muhammad.warehouse_management.config.constant.SecurityConstant.*;
 import static java.util.Arrays.stream;
 
 @Component
@@ -29,13 +29,13 @@ public class JWTTokenProvider {
     @Value("${jwt.secret}")
     private String secret;
 
-    public String generateJwtToken(UserDetails userDetails){
-        String[] claims = getClaimsFromUser(userDetails);
+    public String generateJwtToken(CustomUserDetails customUserDetails){
+        String[] claims = getClaimsFromUser(customUserDetails);
         return JWT.create()
                 .withIssuer(WAREHOUSE_LLC)
                 .withAudience(WAREHOUSE_ADMINISTRATION)
                 .withIssuedAt(new Date())
-                .withSubject(userDetails.getUsername())
+                .withSubject(customUserDetails.getUsername())
                 .withArrayClaim(AUTHORITIES, claims)
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(secret.getBytes()));
@@ -87,9 +87,9 @@ public class JWTTokenProvider {
         return verifier;
     }
 
-    private String[] getClaimsFromUser(UserDetails userDetails) {
+    private String[] getClaimsFromUser(CustomUserDetails customUserDetails) {
         List<String> authorities = new ArrayList<>();
-        for(GrantedAuthority grantedAuthority : userDetails.getAuthorities()){
+        for(GrantedAuthority grantedAuthority : customUserDetails.getAuthorities()){
             authorities.add(grantedAuthority.getAuthority());
         }
         return authorities.toArray(new String[0]);

@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 
-public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
+public class CustomUserDetails implements org.springframework.security.core.userdetails.UserDetails {
     private User user;
 
-    public UserDetails(User user) {
+    public CustomUserDetails(User user) {
         this.user = user;
     }
 

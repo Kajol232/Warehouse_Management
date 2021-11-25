@@ -14,7 +14,7 @@ public class User {
     private String userName;
     private String password;
     private String email;
-    private String[] roles;
+    private String role;
     private String[] authorities;
     private boolean isActive;
     private boolean isNotLocked;
@@ -23,14 +23,14 @@ public class User {
 
     }
 
-    public User(String firstName, String lastName, String userName, String password, String email, String[] roles,
+    public User(String firstName, String lastName, String userName, String password, String email, String role,
                 String[] authorities, boolean isActive, boolean isNotLocked) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
         this.email = email;
-        this.roles = roles;
+        this.role = role;
         this.authorities = authorities;
         this.isActive = isActive;
         this.isNotLocked = isNotLocked;
@@ -80,12 +80,12 @@ public class User {
         this.email = email;
     }
 
-    public String[] getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(String[] roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String[] getAuthorities() {

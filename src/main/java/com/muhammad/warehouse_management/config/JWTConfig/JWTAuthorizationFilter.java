@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.muhammad.warehouse_management.config.SecurityConstant.*;
+import static com.muhammad.warehouse_management.config.constant.SecurityConstant.*;
 
 @Component
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
@@ -32,7 +32,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             response.setStatus(HttpStatus.OK.value());
         }else{
             String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-            if(authorizationHeader == null || authorizationHeader.startsWith(TOKEN_PREFIX)){
+            if(authorizationHeader == null || ! (authorizationHeader.startsWith(TOKEN_PREFIX))){
                 filterChain.doFilter(request, response);
                 return;
             }
